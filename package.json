@@ -1,0 +1,20 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "description": "A manager for jsiom apps",
+  "keywords": ["virtual-dom"],
+  "dependencies": {
+    "event-dispatcher": "jsiom/event-dispatcher",
+    "emitter": "jkroso/Emitter",
+    "create": "jsiom/create",
+    "update": "jsiom/update",
+    "raf": "2"
+  },
+  "devDependencies": {
+    "serve": "jkroso/serve"
+  },
+  "repository": "git://github.com/jsiom/app.git",
+  "author": "Jake Rosoman",
+  "files": ["index.js"],
+  "license": "MIT"
+}
