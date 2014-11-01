@@ -3,6 +3,8 @@ var Emitter = require('emitter')
 var assert = require('assert')
 var update = require('update')
 var create = require('create')
+var Cursor = require('cursor')
+var Atom = require('cell')
 var raf = require('raf')
 
 /**
@@ -18,13 +20,19 @@ function App(state, render, location) {
   this.isRendering = false
   this.redrawScheduled = false
   this.render = render
-  this.state = state
-  this.vdom = create(render(state))
+  this.atom = new Atom(state)
+  this.state = new Cursor(this.atom)
+  this.vdom = create(render(this.state))
   this.dom = update.createElement(this.vdom)
   this.location = location || document.body
 
   this.location.appendChild(this.dom)
   dispatchEvents(this)
+
+  this.atom.addListener(function(){
+    this.state = new Cursor(this.atom)
+    this.requestRedraw()
+  }.bind(this))
 
   this.redraw = function(){
     this.redrawScheduled = false
