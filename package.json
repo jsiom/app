@@ -8,6 +8,8 @@
     "emitter": "jkroso/Emitter",
     "create": "jsiom/create",
     "update": "jsiom/update",
+    "cursor": "jsiom/cursor",
+    "cell": "jkroso/cell",
     "raf": "2"
   },
   "devDependencies": {
