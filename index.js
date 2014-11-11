@@ -1,4 +1,5 @@
 var dispatchEvents = require('event-dispatcher')
+var domready = require('domready')
 var Emitter = require('emitter')
 var assert = require('assert')
 var update = require('update')
@@ -24,10 +25,13 @@ function App(state, render, location) {
   this.state = new Cursor(this.atom)
   this.vdom = create(render(this.state))
   this.dom = update.createElement(this.vdom)
-  this.location = location || document.body
 
-  this.location.appendChild(this.dom)
-  dispatchEvents(this)
+  // wait for document.body to be defined
+  domready(function(){
+    this.location = location || document.body
+    this.location.appendChild(this.dom)
+    dispatchEvents(this)
+  }.bind(this))
 
   this.atom.addListener(function(){
     this.state = new Cursor(this.atom)
@@ -54,7 +58,7 @@ function App(state, render, location) {
 Emitter(App.prototype)
 
 App.prototype.requestRedraw = function() {
-  assert(!this.isRendering, 'redraw requested called while rendering')
+  assert(!this.isRendering, 'redraw requested while rendering')
   if (this.redrawScheduled) return
   this.redrawScheduled = true
   raf(this.redraw)
