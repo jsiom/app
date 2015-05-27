@@ -6,7 +6,6 @@ var update = require('update')
 var create = require('create')
 var Cursor = require('cursor')
 var Atom = require('cell')
-var raf = require('raf')
 
 /**
  * Initialize a jsiom app and insert it into the DOM
@@ -61,7 +60,7 @@ App.prototype.requestRedraw = function() {
   assert(!this.isRendering, 'redraw requested while rendering')
   if (this.redrawScheduled) return
   this.redrawScheduled = true
-  raf(this.redraw)
+  requestAnimationFrame(this.redraw)
 }
 
 module.exports = App

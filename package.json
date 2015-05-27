@@ -10,8 +10,7 @@
     "update": "jsiom/update",
     "cursor": "jsiom/cursor",
     "cell": "jkroso/cell",
-    "domready": "1",
-    "raf": "2"
+    "domready": "1"
   },
   "devDependencies": {
     "serve": "jkroso/serve"
