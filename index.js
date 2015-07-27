@@ -20,7 +20,7 @@ function App(state, render, location) {
   this.isRendering = false
   this.redrawScheduled = false
   this.render = render
-  this.atom = new Atom(state)
+  this.atom = state instanceof Atom ? state : new Atom(state)
   this.state = new Cursor(this.atom)
   this.vdom = create(render(this.state))
   this.dom = update.createElement(this.vdom)
